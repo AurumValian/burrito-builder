@@ -10,9 +10,24 @@ class OrderForm extends Component {
     };
   }
 
+  handleNameChange = e => {
+    this.setState({name: e.target.value})
+  }
+
+  handleIngredientChange = e => {
+    e.preventDefault();
+    const ingredients = this.state.ingredients.slice();
+    ingredients.push(e.target.name);
+    this.setState({ingredients: ingredients});
+  }
 
   handleSubmit = e => {
     e.preventDefault();
+    if (this.state.name && this.state.ingredients.length > 0) {
+      this.props.submitOrder({name: this.state.name, ingredients: this.state.ingredients})
+    } else {
+      console.log('no');
+    }
     this.clearInputs();
   }
 
