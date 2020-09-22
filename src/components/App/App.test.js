@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
-// import { MemoryRouter } from 'react-router-dom';
 jest.mock('../../apiCalls');
 import { getOrders, postOrder, deleteOrder } from '../../apiCalls';
 
