@@ -25,7 +25,6 @@ class App extends Component {
 
   submitOrder(order) {
     postOrder(order)
-      .then(response => response.json())
       .then(response => {
         const orders = this.state.orders.slice();
         orders.push(response);

@@ -13,6 +13,7 @@ export const postOrder = (order) => {
       }
     }
   )
+  .then(response => response.json())
   .catch(error => console.log(error))
 }
 
