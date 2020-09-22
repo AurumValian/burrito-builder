@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getOrders, postOrder} from '../../apiCalls';
+import {getOrders, postOrder, deleteOrder} from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -12,7 +12,9 @@ class App extends Component {
       orders: []
     }
 
+
     this.submitOrder = this.submitOrder.bind(this);
+    this.removeOrder = this.removeOrder.bind(this);
   }
 
   componentDidMount() {
@@ -22,12 +24,24 @@ class App extends Component {
   }
 
   submitOrder(order) {
-    console.log(order)
     postOrder(order)
+      .then(response => response.json())
       .then(response => {
         const orders = this.state.orders.slice();
-        orders.push(order);
+        orders.push(response);
         this.setState({orders: orders});
+      })
+  }
+
+  removeOrder(e) {
+    const orderId = Number(e.target.closest(".order").id);
+    deleteOrder(orderId)
+      .then(response => {
+        let orders = this.state.orders.slice();
+        orders = orders.filter(order => {
+          return order.id !== orderId
+        })
+        this.setState({orders: orders})
       })
   }
 
@@ -39,7 +53,7 @@ class App extends Component {
           <OrderForm  submitOrder={this.submitOrder}/>
         </header>
 
-        <Orders orders={this.state.orders}/>
+        <Orders orders={this.state.orders} removeOrder={this.removeOrder}/>
       </main>
     );
   }

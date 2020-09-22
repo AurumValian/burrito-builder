@@ -15,3 +15,11 @@ export const postOrder = (order) => {
   )
   .catch(error => console.log(error))
 }
+
+export const deleteOrder = (orderId) => {
+  return fetch(`http://localhost:3001/api/v1/orders/${orderId}`,
+    {
+      method: 'DELETE'
+    })
+    .catch(error => console.log(error));
+}
